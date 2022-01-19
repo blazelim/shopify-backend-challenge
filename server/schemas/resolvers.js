@@ -19,10 +19,20 @@ const resolvers = {
           price: price 
         })
     },
-    updateProduct: async (parent, { _id, quantity }) => {
-      const decrement = Math.abs(quantity) * -1;
+    updateProduct: async (parent, { _id, description, quantity, price }) => {
+      let filter = { _id: _id };
+      let update = { 
+        description: description,
+        quantity: quantity,
+        price: price
+      }
 
-      return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+
+      return await Product.findOneAndUpdate(filter, update, { returnOriginal: false });
+    },
+    
+    deleteProduct: async(parent, {_id}) => {
+      return await Product.findOneAndDelete({_id: _id})
     }
   }
 };
