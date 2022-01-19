@@ -7,10 +7,13 @@ const resolvers = {
       return await Category.find();
     },
     products: async () => {
-      return await Product.find();
+      return await Product.find().populate('category');
     },
   },
   Mutation: {
+    // createProduct: async (parent, { name, description, quantity, price, category }) => {
+    //     return "hello"
+    // },
     updateProduct: async (parent, { _id, quantity }) => {
       const decrement = Math.abs(quantity) * -1;
 
