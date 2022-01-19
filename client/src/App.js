@@ -12,7 +12,7 @@ import Home from './pages/Home';
 import UpdateProduct from './pages/UpdateProduct';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: `http://${process.env.URL}:${process.env.PORT}`,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -20,7 +20,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      Authorization: token ? `Bearer ${token}` : '',
     },
   };
 });
